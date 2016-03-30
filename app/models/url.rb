@@ -1,5 +1,6 @@
 class Url < ActiveRecord::Base
   has_many :payload_requests
+  has_many :referrers, through: :payload_requests
 
   validates :address, presence: true
 

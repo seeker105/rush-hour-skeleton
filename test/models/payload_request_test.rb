@@ -110,17 +110,20 @@ class PayloadRequestTest < Minitest::Test
 
   def test_list_http_verbs_given_specific_url
 
-    PayloadRequest.create(referrer: Referrer.create(address:"http://newegg.com"))
-    PayloadRequest.create(referrer: Referrer.create(address:"http://newegg.com"))
-    PayloadRequest.create(referrer: Referrer.create(address:"http://amazon.com"))
-    PayloadRequest.create(referrer: Referrer.create(address:"http://amazon.com"))
-    PayloadRequest.create(referrer: Referrer.create(address:"http://amazon.com"))
-    PayloadRequest.create(referrer: Referrer.create(address:"http://amazon.com"))
+    PayloadRequest.create(url: Url.create(address: "http://turing.io"), referrer: Referrer.create(address:"http://newegg.com"))
+    PayloadRequest.create(url: Url.create(address: "http://turing.io"), referrer: Referrer.create(address:"http://newegg.com"))
+    PayloadRequest.create(url: Url.create(address: "http://turing.io"), referrer: Referrer.create(address:"http://newegg.com"))
+    PayloadRequest.create(url: Url.create(address: "http://turing.io"), referrer: Referrer.create(address:"http://newegg.com"))
+    PayloadRequest.create(url: Url.create(address: "http://turing.io"), referrer: Referrer.create(address:"http://amazon.com"))
+    PayloadRequest.create(url: Url.create(address: "http://turing.io"), referrer: Referrer.create(address:"http://amazon.com"))
+    PayloadRequest.create(url: Url.create(address: "http://turing.io"), referrer: Referrer.create(address:"http://amazon.com"))
+    PayloadRequest.create(url: Url.create(address: "http://turing.io"), referrer: Referrer.create(address:"http://nba.com"))
+    PayloadRequest.create(url: Url.create(address: "http://turing.io"), referrer: Referrer.create(address:"http://nba.com"))
+    PayloadRequest.create(url: Url.create(address: "http://turing.io"), referrer: Referrer.create(address:"http://nfl.com"))
     require "pry"; binding.pry
 
-    url_address = "http://jumpstartlab.com"
+    url_address = "http://turing.io"
 
     assert_equal nil, PayloadRequest.top_three_referrers_by_url(url_address)
   end
 end
-

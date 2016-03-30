@@ -54,6 +54,7 @@ class PayloadRequest < ActiveRecord::Base
   end
 
   def self.top_three_referrers_by_url(url_address)
+    require 'pry'; binding.pry
     ids = Url.where(address: url_address).pluck(:id)
     ids.map {|id| Referrer.where(id: id).pluck(:address)}.flatten
   end

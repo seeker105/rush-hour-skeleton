@@ -4,6 +4,8 @@ class UrlTest < Minitest::Test
   include TestHelpers
 
   def test_it_can_accept_url
+    setup_data
+    require 'pry'; binding.pry
     url = Url.create(address: "www.turing.io")
 
     assert_equal "www.turing.io", url.address
