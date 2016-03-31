@@ -1,4 +1,4 @@
-class UserAgent < ActiveRecord::Migration
+class UAgent < ActiveRecord::Migration
   def change
     create_table :user_agents do |t|
       t.string  :browser
