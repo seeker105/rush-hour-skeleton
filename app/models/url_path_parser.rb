@@ -3,3 +3,6 @@ class UrlPathParser
     client = Client.find_by(identifier: identifier)
   end
 end
+
+
+# SOOOOOOOO TIRED.....CAN"T FOCUS
