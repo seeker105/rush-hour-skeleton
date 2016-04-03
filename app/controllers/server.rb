@@ -6,6 +6,10 @@ module RushHour
     include ParamsChecker
     include PayloadParser
 
+    get '/' do
+      erb :index
+    end
+
     post '/sources' do
       client = Client.new(change_case(params))
 
