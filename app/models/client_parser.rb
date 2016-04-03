@@ -1,4 +1,3 @@
-require 'URI'
 module ClientParser
 	def parse_client_and_direct_to_page
 		@client = Client.find_by(identifier: params['identifier'])

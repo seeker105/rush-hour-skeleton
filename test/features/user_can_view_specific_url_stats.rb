@@ -15,6 +15,7 @@ class UserCanViewStatsForRelativePath< FeatureTest
     assert_equal path, current_path
 
     click_link "http://jumpstartlab.com/blog"
+    save_and_open_page
     assert_equal "/sources/jumpstartlab/urls/blog", current_path
 
 #     within('#analytics') do
@@ -30,4 +31,3 @@ class UserCanViewStatsForRelativePath< FeatureTest
 #     end
    end
 end
-
