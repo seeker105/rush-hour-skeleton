@@ -19,7 +19,6 @@ class UserCanClickOnEventHours < FeatureTest
     visit path
 
     assert_equal '/sources/jumpstartlab/events/socialLogin', current_path
-    # save_and_open_page
     within("h1") do
       assert page.has_content?("HOURLY BREAKDOWN YO")
     end
