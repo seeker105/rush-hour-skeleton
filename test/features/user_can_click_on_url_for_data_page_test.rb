@@ -99,7 +99,7 @@ class UserCanClickOnURLOnDashboard < FeatureTest
       assert page.has_content?("List of all HTTP verbs used: [\"GET\"]")
       assert page.has_content?("List of URLs listed from most requested to least requested: http://turing.io")
       assert page.has_content?("Web browser breakdown across all requests: [\"Chrome\"]")
-      assert page.has_content?("OS breakdown across all requests: [\"Macintosh\"]")
+      assert page.has_content?("OS breakdown across all requests:	[\"Macintosh\"]")
       assert page.has_content?("Screen Resolutions across all requests (resolutionWidth x resolutionHeight): [\"1920x1280\"]")
     end
   end
