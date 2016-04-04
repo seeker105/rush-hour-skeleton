@@ -1,9 +1,36 @@
-<div id="analytics">
-	<h3>Max Response time: <%= @requests.max_response_time %></h3>
-	<h3>Min Response time: <%= @requests.min_response_time %></h3>
-	<h3>A list of response times across all requests listed from longest response time to shortest response time:  <%= @requests.all_response_time_from_most_to_least %></h3>
-	<h3>Average Response time for this URL: <%= @requests.average_response_time.round(2) %></h3>
-	<h3>HTTP Verb(s) associated with this URL: <%= @requests.list_all_verbs %> </h3>
-	<h3>Three most popular referrers: <%= @requests.list_top_three_referrers %></h3>
-	<h3>Three most popular user agents: <%= @requests.list_top_three_u_agents %></h3>
+<div class="card-panel grey lighten-3">
+	<div id="analytics">
+		<table class="highlight striped">
+			<tbody>
+				<tr>
+					<td>Max Response time:</td>
+					<td><%= @requests.max_response_time %></td>
+				</tr>
+				<tr>
+					<td>Min Response time:</td>
+					<td><%= @requests.min_response_time %></td>
+				</tr>
+				<tr>
+					<td>A list of response times across all requests listed from longest response time to shortest response time:</td>
+					<td><%= @requests.all_response_time_from_most_to_least %></td>
+				</tr>
+				<tr>
+					<td>Average Response time for this URL:</td>
+					<td><%= @requests.average_response_time.round(2) %></td>
+				</tr>
+				<tr>
+					<td>HTTP Verb(s) associated with this URL:</td>
+					<td><%= @requests.list_all_verbs %></td>
+				</tr>
+				<tr>
+					<td>Three most popular referrers:</td>
+					<td><%= @requests.list_top_three_referrers %></td>
+				</tr>
+				<tr>
+					<td>Three most popular user agents:</td>
+					<td><%= @requests.list_top_three_u_agents %></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
 </div>
