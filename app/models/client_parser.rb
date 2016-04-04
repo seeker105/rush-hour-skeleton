@@ -1,5 +1,6 @@
 module ClientParser
 
+<<<<<<< HEAD
 	def find_client(identifier)
 		Client.find_by(identifier: identifier)
 	end
@@ -14,7 +15,15 @@ module ClientParser
 		@urls_with_requests = urls.inject(Hash.new([])) do |hash, url|
 			hash[url] += @client.find_payload_requests_by_relative_path(url) if @client.find_payload_requests_by_relative_path(url)
 			hash
+=======
+	def get_relative_paths(client)
+		urls = client.most_to_least_frequent_urls
+		@urls_with_requests = Hash.new([])
+		urls.map do |url|
+			@urls_with_requests[url] += client.find_payload_requests_by_relative_path(url) if @client.find_payload_requests_by_relative_path(url)
+>>>>>>> f3fb4c4d9f1996bd4e663d8d0431f8ec6e16dda6
 		end
+		@urls_with_requests.keys.map { |url| URI.parse(url).path }
 	end
 
 	def create_relativepaths(urls_with_requests)
