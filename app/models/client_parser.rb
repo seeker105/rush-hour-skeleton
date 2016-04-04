@@ -1,30 +1,30 @@
 module ClientParser
 
-	#BREAK UP INTO SMALLER METHODS
-	def parse_client_and_direct_to_page
-		@client = Client.find_by(identifier: params['identifier'])
+	def find_client(identifier)
+		Client.find_by(identifier: identifier)
+	end
+
+	def parse_client(identifier)
+		@client = find_client(identifier)
 		@identifier = @client.identifier if @client
+	end
 
-		if @client == nil
-			erb :not_registered
-		elsif @client.payload_requests.count == 0
-			erb :no_data
-		elsif @client
-			urls = @client.most_to_least_frequent_urls
-			@urls_with_requests = Hash.new([])
-			urls.map do |url|
-				@urls_with_requests[url] += @client.find_payload_requests_by_relative_path(url) if @client.find_payload_requests_by_relative_path(url)
-			end
-
-			@relativepaths = @urls_with_requests.keys.map { |url| URI.parse(url).path }
-			erb :dashboard
+	def generate_urls_with_requests_hash(client)
+		urls = client.most_to_least_frequent_urls
+		@urls_with_requests = urls.inject(Hash.new([])) do |hash, url|
+			hash[url] += @client.find_payload_requests_by_relative_path(url) if @client.find_payload_requests_by_relative_path(url)
+			hash
 		end
+	end
+
+	def create_relativepaths(urls_with_requests)
+		urls_with_requests.keys.map { |url| URI.parse(url).path }
 	end
 
 	def parse_event_data(identifier, eventname)
 		@event_text = "Number of " + eventname + "s: "
 		@identifier = identifier
-		client = Client.find_by(identifier: identifier)
+		client = find_client(identifier)
 		client_events_exist?(client, eventname)
 	end
 
@@ -48,13 +48,13 @@ module ClientParser
 		@events_by_hour = event_hours.inject(Hash.new(0)) { |hash, hour| hash[hour] += 1; hash }
 	end
 
-	def get_client_and_events(identifier)
-		@client = Client.find_by(identifier: identifier)
+	def get_events(identifier)
+		@client = find_client(identifier)
 		@event_names = @client.events.pluck(:name).uniq
 	end
 
 	def find_relative_path_payload_requests(identifier, relativepath)
-		@client = Client.find_by(identifier: identifier)
+		@client = find_client(identifier)
 		url = "http://#{identifier}.com/#{relativepath}"
 		@requests = @client.find_payload_requests_by_relative_path(url)
 	end
