@@ -30,7 +30,7 @@ module ClientParser
 
 	def client_events_exist?(client, eventname)
 		if client && client.events.find_by(name: eventname)
-			event_hours = find_and_format_event_hours(eventname)
+			event_hours = find_and_format_event_hours(eventname, client)
 			create_events_by_hour_hash(event_hours)
 			true
 		else
@@ -38,7 +38,7 @@ module ClientParser
 		end
 	end
 
-	def find_and_format_event_hours(eventname)
+	def find_and_format_event_hours(eventname, client)
 		client.events.find_by(name: eventname).payload_requests.where(client: client.id).pluck(:requested_at).map do |time|
 			Time.parse(time).strftime("%H")
 		end
