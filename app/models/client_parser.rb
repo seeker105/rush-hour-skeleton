@@ -21,20 +21,31 @@ module ClientParser
 		end
 	end
 
-	def parse_event_data_and_direct_to_page(identifier, eventname)
+	def parse_event_data(identifier, eventname)
 		@event_text = "Number of " + eventname + "s: "
 		@identifier = identifier
 		client = Client.find_by(identifier: identifier)
-		if client && client.events.find_by(name: eventname)
-			event_hours = client.events.find_by(name: eventname).payload_requests.where(client: client.id).pluck(:requested_at).map do |time|
-				Time.parse(time).strftime("%H")
-			end
+		client_events_exist?(client, eventname)
+	end
 
-			@events_by_hour = event_hours.inject(Hash.new(0)) { |hash, hour| hash[hour] += 1; hash }
-			erb :events
+	def client_events_exist?(client, eventname)
+		if client && client.events.find_by(name: eventname)
+			event_hours = find_and_format_event_hours(eventname)
+			create_events_by_hour_hash(event_hours)
+			true
 		else
-			erb :no_event
+			false
 		end
+	end
+
+	def find_and_format_event_hours(eventname)
+		client.events.find_by(name: eventname).payload_requests.where(client: client.id).pluck(:requested_at).map do |time|
+			Time.parse(time).strftime("%H")
+		end
+	end
+
+	def create_events_by_hour_hash(event_hours)
+		@events_by_hour = event_hours.inject(Hash.new(0)) { |hash, hour| hash[hour] += 1; hash }
 	end
 
 	def get_client_and_events(identifier)

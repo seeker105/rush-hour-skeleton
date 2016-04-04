@@ -31,9 +31,7 @@ module RushHour
     end
 
     get '/sources/:identifier/events/:eventname' do |identifier, eventname|
-      # parse_event_data_and_direct_to_page(identifier, eventname)
-      # Jon is fixing this
-      event_exists = parse_event_data
+      event_exists = parse_event_data(identifier, eventname)
 
       if event_exists
         erb :events
