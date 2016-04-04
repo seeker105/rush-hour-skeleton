@@ -20,9 +20,13 @@ require APP_ROOT.join('config', 'database')
 # configure Server settings
 module RushHour
   class Server < Sinatra::Base
+    register Sinatra::CrossOrigin
     set :method_override, true
     set :root, APP_ROOT.to_path
     set :views, File.join(RushHour::Server.root, "app", "views")
     set :public_folder, File.join(RushHour::Server.root, "app", "public")
+    set :allow_origin, :any
+
+
   end
 end

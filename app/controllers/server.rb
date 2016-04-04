@@ -8,14 +8,20 @@ module RushHour
     include PayloadParser
     include ClientParser
 
+    configure do
+      enable :cross_origin
+    end
+
     post '/sources' do
       client = Client.new(change_case(params))
+      response['Access-Control-Allow-Origin'] = '*'
       client.save if check(change_case(params))
     end
 
     post '/sources/:identifier/data' do |identifier|
       result = validate_request(identifier, params)
       add_to_database(params, identifier) if result[0] == 200
+      response['Access-Control-Allow-Origin'] = '*'
       status, body = result
     end
 
@@ -29,8 +35,9 @@ module RushHour
         erb :show
       else
         erb :not_requested
-      end
     end
+    end
+
 
     get '/sources/:identifier/events/:eventname' do |identifier, eventname|
       parse_event_data_and_direct_to_page(identifier, eventname)
