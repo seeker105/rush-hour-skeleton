@@ -2,6 +2,8 @@ require_relative '../models/params_checker'
 require_relative '../models/payload_parser'
 require_relative '../models/client_parser'
 
+# USE ERBS IN CONTROLLER
+
 module RushHour
   class Server < Sinatra::Base
     include ParamsChecker
@@ -29,7 +31,15 @@ module RushHour
     end
 
     get '/sources/:identifier/events/:eventname' do |identifier, eventname|
-      parse_event_data_and_direct_to_page(identifier, eventname)
+      # parse_event_data_and_direct_to_page(identifier, eventname)
+      # Jon is fixing this
+      event_exists = parse_event_data
+
+      if event_exists
+        erb :events
+      else
+        erb :no_event
+      end
     end
 
     get '/sources/:identifier/events' do |identifier|

@@ -1,4 +1,6 @@
 module ClientParser
+
+	#BREAK UP INTO SMALLER METHODS
 	def parse_client_and_direct_to_page
 		@client = Client.find_by(identifier: params['identifier'])
 		@identifier = @client.identifier if @client
@@ -24,7 +26,7 @@ module ClientParser
 		@identifier = identifier
 		client = Client.find_by(identifier: identifier)
 		if client && client.events.find_by(name: eventname)
-			event_hours = client.events.find_by(name: eventname).payload_requests.pluck(:requested_at).map do |time|
+			event_hours = client.events.find_by(name: eventname).payload_requests.where(client: client.id).pluck(:requested_at).map do |time|
 				Time.parse(time).strftime("%H")
 			end
 
