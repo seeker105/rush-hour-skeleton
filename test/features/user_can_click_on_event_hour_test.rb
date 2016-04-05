@@ -54,7 +54,7 @@ class UserCanClickOnEventHours < FeatureTest
                                   18 Number of socialLogins: 0
                                   19 Number of socialLogins: 0
                                   20 Number of socialLogins: 0
-                                  21 Number of socialLogins: 2
+                                  21 Number of socialLogins: 1
                                   22 Number of socialLogins: 0
                                   23 Number of socialLogins: 0
                                   ")
