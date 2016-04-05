@@ -42,12 +42,7 @@ module RushHour
 
     get '/sources/:identifier/events/:eventname' do |identifier, eventname|
       event_exists = parse_event_data(identifier, eventname)
-
-      if event_exists
-        erb :events
-      else
-        erb :no_event
-      end
+      event_exists ? (erb :events) : (erb :no_event)
     end
 
     get '/sources/:identifier/events' do |identifier|

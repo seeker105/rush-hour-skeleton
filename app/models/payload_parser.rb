@@ -32,6 +32,7 @@ module PayloadParser
 	end
 
 	def payload_valid?(params)
+		# binding.pry
 		platform = UserAgent.parse(params['u_agent']).platform
 		browser = UserAgent.parse(params['u_agent']).browser
 
