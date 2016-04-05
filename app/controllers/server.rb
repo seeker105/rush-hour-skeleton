@@ -16,21 +16,23 @@ module RushHour
     post '/sources/:identifier/data' do |identifier|
       result = validate_request(identifier, params)
       add_to_database(params, identifier) if result[0] == 200
-      status, body = result
+
+      status(result[0])
+      body(result[1])
     end
 
     get '/sources/:identifier' do |identifier|
-      @client = Client.find_by(identifier: params['identifier'])
-      @identifier = @client.identifier if @client
+      parse_client(identifier)
 
       if @client == nil
-        erb :not_registered
-      elsif @client.payload_requests.count == 0
-        erb :no_data
-      elsif @client
-        @relativepaths = get_relative_paths(@client)
-        erb :dashboard
-      end
+  			erb :not_registered
+  		elsif @client.payload_requests.count == 0
+  			erb :no_data
+  		elsif @client
+  			generate_urls_with_requests_hash(@client)
+  			@relativepaths = create_relativepaths(@urls_with_requests)
+  			erb :dashboard
+  		end
     end
 
     get '/sources/:identifier/urls/:relativepath' do |identifier, relativepath|
@@ -39,11 +41,17 @@ module RushHour
     end
 
     get '/sources/:identifier/events/:eventname' do |identifier, eventname|
-      parse_event_data_and_direct_to_page(identifier, eventname)
+      event_exists = parse_event_data(identifier, eventname)
+
+      if event_exists
+        erb :events
+      else
+        erb :no_event
+      end
     end
 
     get '/sources/:identifier/events' do |identifier|
-      get_client_and_events(identifier)
+      get_events(identifier)
       erb :client_events
     end
 

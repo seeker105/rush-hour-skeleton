@@ -1,4 +1,6 @@
 module PayloadParser
+
+	# BREAK UP INTO SMALLER METHODS
 	def params_parser(params, identifier)
 		params = JSON.parse(params['payload']) if params['payload']
 		{

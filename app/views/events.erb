@@ -1,4 +1,20 @@
-<h1> HOURLY BREAKDOWN YO</h1>
-<% (0..23).step do |index| %>
-<h3><%= index.to_s.rjust(2, "0") %>: <%= @event_text %><%= @events_by_hour[index.to_s.rjust(2, "0")] %></h3>
-<% end %>
+	<div class="center container card-panel grey lighten-3">
+		<h2>Hourly Breakdown</h2>
+		<table class="highlight striped">
+			<thread>
+				<tr>
+					<th data-field="id">Hour</th>
+					<th data-field="id">Requests info</th>
+				</tr>
+
+				<tbody>
+					<% (0..23).step do |index| %>
+	          <tr>
+	            <td><%= index.to_s.rjust(2, "0") %></td>
+	            <td><%= @event_text %><%= @events_by_hour[index.to_s.rjust(2, "0")] %></td>
+	          </tr>
+					<% end %>
+				</tbody>
+			</thread>
+		</table>
+	</div>
