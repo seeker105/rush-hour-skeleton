@@ -27,7 +27,7 @@ class CreateClientTest < Minitest::Test
     post '/sources', { identifier: "dfgdf", root_url: ""}
 
     assert_equal 0, Client.all.count
-    assert_equal 401, last_response.status
+    assert_equal 400, last_response.status
     assert_equal "invalid root_url", last_response.body
   end
 
@@ -35,7 +35,7 @@ class CreateClientTest < Minitest::Test
     post '/sources', { identifier: "", root_url: "something"}
 
     assert_equal 0, Client.all.count
-    assert_equal 401, last_response.status
+    assert_equal 400, last_response.status
     assert_equal "invalid identifier", last_response.body
   end
 

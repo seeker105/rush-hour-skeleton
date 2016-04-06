@@ -1,5 +1,4 @@
 module ClientParser
-
 	def find_client(identifier)
 		Client.find_by(identifier: identifier)
 	end
