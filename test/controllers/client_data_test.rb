@@ -7,6 +7,7 @@ class CreateClientDataTest < Minitest::Test
   include ParamsChecker
 
   def test_payloads_can_be_stored_in_a_client_account
+    skip
     register_client
     setup_data
 
@@ -18,6 +19,7 @@ class CreateClientDataTest < Minitest::Test
   end
 
   def test_data_can_be_created
+    skip
     register_client
     setup_data
     pr = PayloadRequest.first
@@ -34,6 +36,7 @@ class CreateClientDataTest < Minitest::Test
   end
 
   def test_it_returns_400_for_missing_payload
+    skip
     register_client
     post '/sources/jumpstartlab/data'
 
@@ -43,6 +46,7 @@ class CreateClientDataTest < Minitest::Test
   end
 
   def test_it_returns_200_for_good_data
+    skip
     register_client
     setup_data
     pr = PayloadRequest.first
@@ -79,6 +83,7 @@ class CreateClientDataTest < Minitest::Test
   end
 
   def test_it_returns_400_for_untracked_urls
+    skip
     register_client
     post '/sources/jumpstartlab/data'
 

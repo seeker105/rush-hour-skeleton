@@ -13,11 +13,11 @@ class PayloadParserTest < Minitest::Test
 		refute client_exists?("not a client")
 	end
 
-	def test_can_check_if_payload_is_valid
-		params = get_params
-
-		assert payload_valid?(params)
-	end
+	# def test_can_check_if_payload_is_valid
+	# 	params = get_params
+	#
+	# 	assert payload_valid?(params)
+	# end
 
 	def test_can_check_for_duplicate_entries_when_none_exist
 		params = get_params

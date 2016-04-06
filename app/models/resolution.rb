@@ -1,8 +1,8 @@
 class Resolution < ActiveRecord::Base
   has_many :payload_requests
 
-  validates :width, presence: true
-  validates :height, presence: true
+  validates :width, presence: true, uniqueness: true
+  validates :height, presence: true, uniqueness: true
 
   def self.resolutions_across_all_requests
    result =  pluck(:width, :height)
